@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>Home</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="ready" class="card-columns p-5">
+            <div v-for="post in posts" class="card">
+                    <div class="card-body">
+                        <img :src="post.img.guid.rendered" class="card-img-top" alt="...">
+                        <h5 class="card-title"> {{ post.title.rendered }} </h5>
+                        <a :href="post.link" class="btn btn-primary" target="_blank">En savoir plus</a>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>
