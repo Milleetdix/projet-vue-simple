@@ -23,7 +23,6 @@ window.onload = function () {
                     posts.json().then(function (posts) {
                         posts.forEach(function (post) {
                             var imgURL = "https://www.peopleofprint.com/wp-json/wp/v2/media/"+post.featured_media
-                            console.log(imgURL)
                             fetch(imgURL).then(function (img) {
                                 img.json().then(function (img) {
                                     post.img = img
