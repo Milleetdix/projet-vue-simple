@@ -7,7 +7,7 @@ window.onload = function () {
             posts: [],
             authors: [],
             currentAuthor: "",
-            apiURL: "https://www.peopleofprint.com/wp-json/wp/v2/posts",
+            apiURL: "https://www.peopleofprint.com",
             ready : false
         },
 
@@ -21,7 +21,9 @@ window.onload = function () {
                 vm = this
                 vm.ready = false
                 vm.posts =  []
-                fetch(vm.apiURL).then(function (posts) {
+                endurl = "/wp-json/wp/v2/posts"
+                url = vm.apiURL + endurl
+                fetch(url).then(function (posts) {
                     posts.json().then(function (posts) {
                         vm.fetchAuthors(posts, vm)
                         posts.forEach(function (post) {
