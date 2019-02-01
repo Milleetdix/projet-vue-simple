@@ -1,5 +1,4 @@
-var apiURL = 'https://www.peopleofprint.com/wp-json/wp/v2/posts'
-
+var apiURL = "https://www.peopleofprint.com/wp-json/wp/v2/posts"
 
 window.onload = function () {
     var posts = new Vue({
@@ -8,6 +7,8 @@ window.onload = function () {
 
         data: {
             posts: [],
+            authors: ["45", "417", "407" ],
+            currentAuthor: "45",
             ready : false
         },
 
@@ -15,14 +16,13 @@ window.onload = function () {
             this.fetchData()
         },
 
-
         methods: {
             fetchData: function () {
                 vm = this
                 fetch(apiURL).then(function (posts) {
                     posts.json().then(function (posts) {
                         posts.forEach(function (post) {
-                            var imgURL = "https://www.peopleofprint.com/wp-json/wp/v2/media/"+post.featured_media
+                            var imgURL = post._links['wp:featuredmedia'][0].href
                             fetch(imgURL).then(function (img) {
                                 img.json().then(function (img) {
                                     post.img = img

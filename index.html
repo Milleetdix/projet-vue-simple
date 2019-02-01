@@ -8,16 +8,31 @@
     <title>Home</title>
 </head>
 <body>
-    <div id="app">
-        <div v-if="ready" class="card-columns p-5">
-            <div v-for="post in posts" class="card">
-                    <div class="card-body">
-                        <img :src="post.img.guid.rendered" class="card-img-top" alt="...">
-                        <h5 class="card-title"> {{ post.title.rendered }} </h5>
-                        <a :href="post.link" class="btn btn-primary" target="_blank">En savoir plus</a>
-                    </div>
-                </div>
+<div id="app">
+    <div text align="center">
+        <h1 style="margin: 1em;" >LES DERNIÈRS ARTICLES</h1>
+        <h3 style="margin-bottom: 1em; color: crimson">Choisir un auteur</h3>
+        <div style="display: inline-block; margin: 1em;" v-for="author in authors">
+            <div class="author-toggle">
+                <input type="radio"
+                       :id="author"
+                       :value="author"
+                       v-model="currentAuthor">
+                <label :for="author">Auteur ID: {{ author }}</label>
+            </div>
         </div>
     </div>
+    <div v-if="ready" class="card-columns p-4">
+        <div v-for="post in posts">
+            <div v-if="currentAuthor == post.author" class="card">
+                <div class="card-body">
+                    <img :src="post.img.guid.rendered" class="card-img-top" alt="...">
+                    <h2 class="card-title" v-html="post.title.rendered"></h2>
+                    <a :href="post.link" class="btn btn-danger" target="_blank">En savoir plus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
