@@ -1,5 +1,3 @@
-var apiURL = "https://www.peopleofprint.com/wp-json/wp/v2/posts"
-
 window.onload = function () {
     var posts = new Vue({
 
@@ -7,8 +5,9 @@ window.onload = function () {
 
         data: {
             posts: [],
-            authors: ["45", "417", "407" ],
-            currentAuthor: "45",
+            authors: [],
+            currentAuthor: "",
+            apiURL: "https://www.peopleofprint.com/wp-json/wp/v2/posts",
             ready : false
         },
 
@@ -16,11 +15,15 @@ window.onload = function () {
             this.fetchData()
         },
 
+
         methods: {
             fetchData: function () {
                 vm = this
-                fetch(apiURL).then(function (posts) {
+                vm.ready = false
+                vm.posts =  []
+                fetch(vm.apiURL).then(function (posts) {
                     posts.json().then(function (posts) {
+                        vm.fetchAuthors(posts, vm)
                         posts.forEach(function (post) {
                             var imgURL = post._links['wp:featuredmedia'][0].href
                             fetch(imgURL).then(function (img) {
@@ -33,6 +36,15 @@ window.onload = function () {
                         })
                     })
                 })
+            },
+
+            fetchAuthors(posts, vm){
+                const authorsTable = []
+                vm.authors = posts.map(p =>{
+                    authorsTable.push(p.author)
+                })
+                vm.authors = [...new Set(authorsTable)]
+                vm.currentAuthor = vm.authors[0]
             }
         }
     })
